@@ -17,6 +17,13 @@
   <ItemGroup>
     <Folder Include="Filters\" />
     <Folder Include="Models\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MotorcycleRental.Application\MotorcycleRental.Application.csproj" />
+    <ProjectReference Include="..\MotorcycleRental.Core\MotorcycleRental.Core.csproj" />
+    <ProjectReference Include="..\MotorcycleRental.Infrastructure\MotorcycleRental.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

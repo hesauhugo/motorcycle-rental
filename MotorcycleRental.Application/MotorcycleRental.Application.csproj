@@ -13,4 +13,9 @@
     <Folder Include="Queries\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MotorcycleRental.Core\MotorcycleRental.Core.csproj" />
+    <ProjectReference Include="..\MotorcycleRental.Infrastructure\MotorcycleRental.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

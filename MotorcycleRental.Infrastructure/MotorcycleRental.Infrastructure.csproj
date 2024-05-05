@@ -12,4 +12,8 @@
     <Folder Include="Persistence\Repositories\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MotorcycleRental.Core\MotorcycleRental.Core.csproj" />
+  </ItemGroup>
+
 </Project>
