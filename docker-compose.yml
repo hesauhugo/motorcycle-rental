@@ -1,0 +1,30 @@
+﻿services:
+  motorcycle-rental-api:
+    container_name: motorcycle-rental-api
+    build:
+      dockerfile: MotorcycleRental.API/Dockerfile
+      context: .
+    ports:
+      - 32777:80
+    networks:
+      motorcycle-networks:
+    depends_on: ["postgres-docker"]
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  postgres-docker:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: MotorcycleRental@123
+      POSTGRES_DB: MotorcycleRental
+    ports:
+      - "5433:5432"
+    networks:
+      motorcycle-networks:
+        aliases:
+          - pghost
+
+networks:
+  motorcycle-networks:
+    driver: bridge

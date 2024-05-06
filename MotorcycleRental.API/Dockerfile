@@ -1,25 +1,25 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 80
+EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+ARG BUILD_CONFIGURATION=Development
 WORKDIR /src
-COPY ["MotorcycleRental.API.csproj", "."]
-RUN dotnet restore "./././MotorcycleRental.API.csproj"
+COPY ["MotorcycleRental.API/MotorcycleRental.API.csproj", "MotorcycleRental.API/"]
+COPY ["MotorcycleRental.Application/MotorcycleRental.Application.csproj", "MotorcycleRental.Application/"]
+COPY ["MotorcycleRental.Core/MotorcycleRental.Core.csproj", "MotorcycleRental.Core/"]
+COPY ["MotorcycleRental.Infrastructure/MotorcycleRental.Infrastructure.csproj", "MotorcycleRental.Infrastructure/"]
+RUN dotnet restore "./MotorcycleRental.API/./MotorcycleRental.API.csproj"
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "./MotorcycleRental.API.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+WORKDIR "/src/MotorcycleRental.API"
+RUN dotnet build "./MotorcycleRental.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./MotorcycleRental.API.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./MotorcycleRental.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
