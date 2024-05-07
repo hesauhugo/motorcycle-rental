@@ -1,24 +1,28 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+using MotorcycleRental.API.DependencyInjection;
+using MotorcycleRental.API.Filters;
+using MotorcycleRental.API.Middleware;
 using MotorcycleRental.Application.Commands.CreateMotorcycle;
-using MotorcycleRental.Core.Repositories;
+using MotorcycleRental.Application.Validators;
 using MotorcycleRental.Infrastructure.Persistence;
-using MotorcycleRental.Infrastructure.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<MotorcycleRentalDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("MotorcycleRental")));
 
-builder.Services.AddScoped(typeof(IMotorcycleRepository), typeof(MotorcycleRepository));
+builder.Services.AddRepositoriesDependencyInjection();
 
-builder.Services.AddControllers();
+builder.Services.AddFluentValidationDependencyInjection();
+
+builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)));
 
 builder.Services.AddMediatR(typeof(CreateMotorcycleCommand).Assembly);
+
+builder.Services.AddSwaggerDependencyInjection(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -37,12 +41,18 @@ if (app.Environment.IsDevelopment())
         opt.SwaggerEndpoint("/swagger/v1/swagger.json", "MotorcycleRental V1");
     });
 
+    app.MigrateDatabase();
+
 }
 
 app.UseHttpsRedirection();
 
 app.UseRouting();
 
+//adiciona o middleware de tratamento de erros
+app.ConfigureExceptionHandler();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

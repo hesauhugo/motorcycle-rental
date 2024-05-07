@@ -42,6 +42,9 @@ namespace MotorcycleRental.Infrastructure.Persistence.Configurations
                 .HasColumnName("license_plate")
                 .HasColumnType("varchar(20)");
 
+            builder
+                .HasIndex(p => p.LicensePlate)
+                .IsUnique();
         }
     }
 }

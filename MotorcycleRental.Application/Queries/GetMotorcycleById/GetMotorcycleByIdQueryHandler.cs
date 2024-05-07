@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MotorcycleRental.Application.Queries
+namespace MotorcycleRental.Application.Queries.GetMotorcycleById
 {
     public class GetMotorcycleByIdQueryHandler : IRequestHandler<GetMotorcycleByIdQuery, MotorcycleViewModel>
     {

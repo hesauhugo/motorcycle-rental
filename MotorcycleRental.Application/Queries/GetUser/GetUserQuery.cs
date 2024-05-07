@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MotorcycleRental.Application.Queries
+namespace MotorcycleRental.Application.Queries.GetUser
 {
-    public class GetMotorcycleByIdQuery:IRequest<MotorcycleViewModel>
+    public class GetUserQuery : IRequest<UserViewModel>
     {
-        public GetMotorcycleByIdQuery(int id)
+        public GetUserQuery(int id)
         {
             Id = id;
         }
 
-        public int Id { get;private set; }
+        public int Id { get; private set; }
     }
 }
