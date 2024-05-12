@@ -33,7 +33,16 @@ namespace MotorcycleRental.Infrastructure.Persistence.Repositories
             using(var connection = new NpgsqlConnection(_connectionString))
             {
                 connection.Open();
-                return await connection.QueryFirstOrDefaultAsync<Motorcycle>("SELECT * FROM motorcycle WHERE id = @Id", new {Id=id});
+                return await connection.QueryFirstOrDefaultAsync<Motorcycle>("SELECT id, year, model, license_plate as licenseplate FROM motorcycle WHERE id = @Id", new {Id=id});
+            }
+        }
+
+        public async Task<Motorcycle> GetByLicensePlateAsync(string licensePlate)
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+                return await connection.QueryFirstOrDefaultAsync<Motorcycle>("SELECT id, year, model, license_plate as licenseplate FROM motorcycle WHERE license_plate = @LicensePlate", new { LicensePlate = licensePlate });
             }
         }
     }

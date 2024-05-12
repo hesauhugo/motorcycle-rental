@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MotorcycleRental.Application.Commands.CreateMotorcycle;
 using MotorcycleRental.Application.Queries.GetMotorcycleById;
+using MotorcycleRental.Application.Queries.GetMotorcycleByLicensePlate;
 using MotorcycleRental.Application.ViewModels;
 
 namespace MotorcycleRental.API.Controllers
@@ -38,6 +39,7 @@ namespace MotorcycleRental.API.Controllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotorcycleViewModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById(int id)
         {
@@ -45,6 +47,26 @@ namespace MotorcycleRental.API.Controllers
             var motorcycle = await _mediator.Send(query);
 
             if(motorcycle is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(motorcycle);
+        }
+
+        [HttpGet("GetByLicensePlate/{licensePlate}")]
+        [Authorize(Roles = "admin")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotorcycleViewModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetByLicensePlate(string licensePlate)
+        {
+            var query = new GetMotorcycleByLicensePlateQuery(licensePlate);
+            var motorcycle = await _mediator.Send(query);
+
+            if (motorcycle is null)
             {
                 return NotFound();
             }

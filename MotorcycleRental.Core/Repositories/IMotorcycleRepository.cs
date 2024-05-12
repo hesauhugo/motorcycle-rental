@@ -11,5 +11,6 @@ namespace MotorcycleRental.Core.Repositories
     {
         Task AddAsync(Motorcycle motorcycle);
         Task<Motorcycle> GetByIdAsync(int id);
+        Task<Motorcycle> GetByLicensePlateAsync(string licensePlate);
     }
 }
