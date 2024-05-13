@@ -22,7 +22,7 @@ namespace MotorcycleRental.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "customer")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CustomerViewModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

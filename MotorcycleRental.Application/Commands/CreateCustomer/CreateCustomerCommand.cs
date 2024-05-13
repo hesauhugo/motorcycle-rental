@@ -15,12 +15,12 @@ namespace MotorcycleRental.Application.Commands.CreateCustomer
         public string Cnpj { get; set; }
         public DateTime BirthDate { get; set; }
         public string Cnh { get; set; }
-        public string TipoCnh { get; set; }
-        public IFormFile? CnhFoto { get; set; }
+        public string CnhKind { get; set; }
+        public IFormFile CnhImage { get; set; }
 
         public Customer ToEntity()
         {
-            return new Customer(this.FullName,this.Cnpj,this.BirthDate,this.Cnh,this.TipoCnh);
+            return new Customer(this.FullName,this.Cnpj,this.BirthDate,this.Cnh,this.CnhKind);
         }
     }
 }

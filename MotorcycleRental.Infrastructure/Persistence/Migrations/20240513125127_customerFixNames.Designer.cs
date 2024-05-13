@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotorcycleRental.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MotorcycleRental.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(MotorcycleRentalDbContext))]
-    partial class MotorcycleRentalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240513125127_customerFixNames")]
+    partial class customerFixNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +45,7 @@ namespace MotorcycleRental.Infrastructure.Persistence.Migrations
                     b.Property<string>("CnhKind")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("cnh_kind");
+                        .HasColumnName("tipo_cnh");
 
                     b.Property<string>("Cnpj")
                         .IsRequired()

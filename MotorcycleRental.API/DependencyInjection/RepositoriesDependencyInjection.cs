@@ -1,7 +1,9 @@
 ﻿using MotorcycleRental.Core.Repositories;
 using MotorcycleRental.Core.Services;
+using MotorcycleRental.Core.Storage.LocalStorage;
 using MotorcycleRental.Infrastructure.Auth;
 using MotorcycleRental.Infrastructure.Persistence.Repositories;
+using MotorcycleRental.Infrastructure.Storage.Local;
 
 namespace MotorcycleRental.API.DependencyInjection
 {
@@ -14,6 +16,9 @@ namespace MotorcycleRental.API.DependencyInjection
             services.AddScoped(typeof(IAuthService), typeof(AuthService));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddScoped(typeof(ICustomerRepository),typeof(CustomerRepository));
+
+            //storage
+            services.AddTransient(typeof(ILocalStorage), typeof(LocalStorage));
         }
     }
 }

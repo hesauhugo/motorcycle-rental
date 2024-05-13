@@ -31,7 +31,7 @@ namespace MotorcycleRental.Infrastructure.Persistence.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 connection.Open();
-                return await connection.QueryFirstOrDefaultAsync<Customer>("SELECT id, full_name as fullname,cnpj,birth_date as birthdate, cnh, tipo_cnh as tipocnh FROM customer where id = @id", new { id });
+                return await connection.QueryFirstOrDefaultAsync<Customer>("SELECT id, full_name as fullname,cnpj,birth_date as birthdate, cnh, cnh_kind as cnhkind FROM customer where id = @id", new { id });
             }
             
         }

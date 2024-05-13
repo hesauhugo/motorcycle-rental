@@ -34,4 +34,8 @@
     <ProjectReference Include="..\MotorcycleRental.Infrastructure\MotorcycleRental.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="cnh-images\" />
+  </ItemGroup>
+
 </Project>

@@ -21,7 +21,7 @@ namespace MotorcycleRental.Application.ViewModels
             this.Cnpj = customerEntity.Cnpj;
             this.BirthDate = customerEntity.BirthDate;
             this.Cnh = customerEntity.Cnh;
-            this.TipoCnh = customerEntity.TipoCnh;
+            this.TipoCnh = customerEntity.CnhKind;
         }
     }
 }

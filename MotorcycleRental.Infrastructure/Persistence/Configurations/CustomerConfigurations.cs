@@ -42,9 +42,9 @@ namespace MotorcycleRental.Infrastructure.Persistence.Configurations
                 .IsUnique();
 
             builder
-                .Property(p => p.TipoCnh)
+                .Property(p => p.CnhKind)
                 .IsRequired()
-                .HasColumnName("tipo_cnh")
+                .HasColumnName("cnh_kind")
                 .HasColumnType("text");
 
 
