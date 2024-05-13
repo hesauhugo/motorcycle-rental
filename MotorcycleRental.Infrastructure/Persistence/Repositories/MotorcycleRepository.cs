@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Npgsql;
+using Microsoft.EntityFrameworkCore;
 
 namespace MotorcycleRental.Infrastructure.Persistence.Repositories
 {
@@ -44,6 +45,13 @@ namespace MotorcycleRental.Infrastructure.Persistence.Repositories
                 connection.Open();
                 return await connection.QueryFirstOrDefaultAsync<Motorcycle>("SELECT id, year, model, license_plate as licenseplate FROM motorcycle WHERE license_plate = @LicensePlate", new { LicensePlate = licensePlate });
             }
+        }
+
+        public async Task UpdateLicensePlateAsync(int id, string licensePlate)
+        {
+            var motorcycle = await _context.Motorcycles.FirstOrDefaultAsync(p=>p.Id == id);
+            motorcycle?.UpdateLicensePlate(licensePlate);
+            await _context.SaveChangesAsync();
         }
     }
 }

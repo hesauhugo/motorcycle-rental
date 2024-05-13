@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -30,6 +31,9 @@ namespace MotorcycleRental.Core.Entities
         public string Model { get; private set; }
         public string LicensePlate {  get; private set; }
 
-        
+        public void UpdateLicensePlate(string licensePlate)
+        {
+            this.LicensePlate = licensePlate;
+        }
     }
 }
