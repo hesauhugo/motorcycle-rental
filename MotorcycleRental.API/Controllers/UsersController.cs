@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MotorcycleRental.Application.Commands.CreateUser;
 using MotorcycleRental.Application.Commands.LoginUser;
 using MotorcycleRental.Application.Queries.GetUser;
@@ -15,14 +16,18 @@ namespace MotorcycleRental.API.Controllers
     {
 
         private readonly IMediator _mediator;
-        public UsersController(IMediator mediator)
+        ILogger<UsersController> _logger;
+        public UsersController(IMediator mediator, ILogger<UsersController> logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            _logger.LogInformation($"GetById started");
+
             var query = new GetUserQuery(id);
 
             var user = await _mediator.Send(query);
@@ -32,6 +37,7 @@ namespace MotorcycleRental.API.Controllers
                 return NotFound();
             }
 
+            _logger.LogInformation($"GetById finished with id:{id}");
             return Ok(user);
         }
 
@@ -39,8 +45,11 @@ namespace MotorcycleRental.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
+            _logger.LogInformation($"Post started");
+
             var id = await _mediator.Send(command);
 
+            _logger.LogInformation($"Post finished with id:{id}");
             return CreatedAtAction(nameof(GetById), new { id }, command);
         }
 
@@ -48,12 +57,16 @@ namespace MotorcycleRental.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
+            _logger.LogInformation($"Login started");
+
             var loginUserviewModel = await _mediator.Send(command);
 
             if (loginUserviewModel == null)
             {
                 return BadRequest();
             }
+
+            _logger.LogInformation($"Login finished with user:{loginUserviewModel.Email}");
 
             return Ok(loginUserviewModel);
         }

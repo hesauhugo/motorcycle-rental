@@ -17,10 +17,11 @@ namespace MotorcycleRental.API.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly IMediator _mediator;
-
-        public CustomersController(IMediator mediator)
+        private readonly ILogger<CustomersController> _logger;
+        public CustomersController(IMediator mediator,ILogger<CustomersController> logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -30,8 +31,10 @@ namespace MotorcycleRental.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post([FromForm] CreateCustomerCommand command)
         {
+            _logger.LogInformation($"Post started");
             var id = await _mediator.Send(command);
 
+            _logger.LogInformation($"Post finished");
             return CreatedAtAction(nameof(GetById), new { id }, command);
         }
 
@@ -44,11 +47,13 @@ namespace MotorcycleRental.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+          
             var query = new GetCustomerByIdQuery(id);
             var customer = await _mediator.Send(query);
 
             if (customer is null)
             {
+                _logger.LogInformation($"GetById not found");
                 return NotFound();
             }
 
@@ -63,6 +68,8 @@ namespace MotorcycleRental.API.Controllers
 
             if (loginUserviewModel == null)
             {
+                _logger.LogInformation($"Login not bad request");
+
                 return BadRequest();
             }
 

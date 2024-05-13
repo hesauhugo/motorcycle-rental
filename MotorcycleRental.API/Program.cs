@@ -8,9 +8,13 @@ using MotorcycleRental.API.Middleware;
 using MotorcycleRental.Application.Commands.CreateMotorcycle;
 using MotorcycleRental.Application.Validators;
 using MotorcycleRental.Infrastructure.Persistence;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
+
+builder.Services.AddLoginDependencyInjection(builder.Configuration);
+builder.Host.UseSerilog();
 
 builder.Services.AddDbContext<MotorcycleRentalDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("MotorcycleRental")));
 
