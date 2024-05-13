@@ -32,5 +32,17 @@ namespace MotorcycleRental.Infrastructure.Persistence.Repositories
             var rental = _context.Rentals.Where(p => p.Id == id).Include(c => c.Customer).Include(m => m.Motorcycle).FirstOrDefaultAsync();
             return rental;
         }
+
+        public async Task UpdateEndDateAsync(int id, DateTime endDate)
+        {
+            var rental = await _context.Rentals.FindAsync(id);
+            if(rental is null)
+            {
+                throw new InvalidOperationException("Rental does not exist!"); 
+            }
+            rental.SetEndDate(endDate);
+            await _context.SaveChangesAsync();
+
+        }
     }
 }

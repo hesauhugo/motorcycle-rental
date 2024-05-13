@@ -11,5 +11,6 @@ namespace MotorcycleRental.Core.Repositories
     {
         Task<Rental> GetByIdAsync(int id);
         Task AddAsync(Rental rental);
+        Task UpdateEndDateAsync(int id, DateTime endDate);
     }
 }

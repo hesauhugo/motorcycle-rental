@@ -36,7 +36,7 @@ namespace MotorcycleRental.Core.Entities
 
         public void SetEndDate(DateTime endDate)
         {
-            this.EndDate = EndDate;
+            this.EndDate = endDate;
         }
         public void SetMotorcycleId(int IdMotorcycle)
         {

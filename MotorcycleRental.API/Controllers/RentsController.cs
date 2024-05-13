@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MotorcycleRental.API.Extensions;
 using MotorcycleRental.Application.Commands.CreateRental;
 using MotorcycleRental.Application.Commands.LoginUser;
+using MotorcycleRental.Application.Commands.UpdateRentalEndDate;
 using MotorcycleRental.Application.Queries.GetMotorcycleById;
 using MotorcycleRental.Application.Queries.GetRentalById;
 using MotorcycleRental.Application.ViewModels;
@@ -30,7 +31,7 @@ namespace MotorcycleRental.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(RentalViewModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AddRental([FromBody]  CreateRentalCommand command)
+        public async Task<IActionResult> AddRental([FromBody] CreateRentalCommand command)
         {
             _logger.LogInformation($"AddRental started");
             var customerId = HttpContext.GetCustomerId();
@@ -61,6 +62,23 @@ namespace MotorcycleRental.API.Controllers
             }
             _logger.LogInformation($"GetById finished");
             return Ok(rental);
+        }
+
+        [HttpPatch("{id}/EndDate")]
+        [Authorize(Roles = "customer")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> SetEndDate([FromRoute] int id, [FromBody] UpdateRentalEndDateCommand command)
+        {
+            _logger.LogInformation($"SetEndDate started");
+            command.SetId(id);
+            await _mediator.Send(command);
+
+            _logger.LogInformation($"SetEndDate finished");
+            return NoContent();
         }
     }
 }
