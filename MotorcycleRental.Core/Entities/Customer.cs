@@ -8,22 +8,24 @@ namespace MotorcycleRental.Core.Entities
 {
     public class Customer:BaseEntity
     {
-        public Customer(int id, string fullName, string cnpj, DateTime birthDate, string cnh, string cnhKind):base(id)
+        public Customer(int id, string fullName, string cnpj, DateTime birthDate, string cnh, string cnhKind, string password) : base(id)
         {
             FullName = fullName;
             Cnpj = cnpj;
             BirthDate = birthDate;
             Cnh = cnh;
             CnhKind = cnhKind;
+            Password = password;
         }
 
-        public Customer(string fullName, string cnpj, DateTime birthDate, string cnh, string cnhKind)
+        public Customer(string fullName, string cnpj, DateTime birthDate, string cnh, string cnhKind,string password)
         {
             FullName = fullName;
             Cnpj = cnpj;
             BirthDate = birthDate;
             Cnh = cnh;
             CnhKind = cnhKind;
+            Password = password;
         }
 
         protected Customer() { }
@@ -32,6 +34,7 @@ namespace MotorcycleRental.Core.Entities
         public DateTime BirthDate { get; private set; }
         public string Cnh { get; private set; }
         public string CnhKind { get; private set; }
+        public string Password { get; private set; }
 
 
     }

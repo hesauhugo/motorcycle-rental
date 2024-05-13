@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using MotorcycleRental.Core.Repositories;
+using MotorcycleRental.Core.Services;
 using MotorcycleRental.Core.Storage.LocalStorage;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,17 @@ namespace MotorcycleRental.Application.Commands.CreateCustomer
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly ILocalStorage _localStorage;
-        public CreateCustomerCommandHandler(ICustomerRepository customerRepository,ILocalStorage localStorage)
+        private readonly IAuthCustomerService _authService;
+        public CreateCustomerCommandHandler(ICustomerRepository customerRepository,ILocalStorage localStorage,IAuthCustomerService authService)
         {
             _customerRepository = customerRepository;
             _localStorage = localStorage;
+            _authService = authService;
         }
 
         public async Task<int> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
-            var customer = request.ToEntity();
+            var customer = request.ToEntity(_authService.ComputeSha256Hash(request.Password));
             await _customerRepository.AddAsync(customer);
             int id = customer.Id;
 

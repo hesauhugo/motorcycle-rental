@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MotorcycleRental.Core.Entities;
 using MotorcycleRental.Core.Repositories;
@@ -34,6 +35,13 @@ namespace MotorcycleRental.Infrastructure.Persistence.Repositories
                 return await connection.QueryFirstOrDefaultAsync<Customer>("SELECT id, full_name as fullname,cnpj,birth_date as birthdate, cnh, cnh_kind as cnhkind FROM customer where id = @id", new { id });
             }
             
+        }
+
+        public async Task<Customer> GetCustomerByCnhAndPasswordAsync(string cnh, string passwordHash)
+        {
+            return await _context
+                .Customers
+                .SingleOrDefaultAsync(u => u.Cnh == cnh && u.Password == passwordHash);
         }
     }
 }

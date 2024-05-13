@@ -8,7 +8,16 @@ namespace MotorcycleRental.Core.Services
 {
     public interface IAuthService
     {
-        string GenerateJwtToken(string email, string role);
         string ComputeSha256Hash(string password);
     }
+
+    public interface IAuthUserService:IAuthService {
+        string GenerateJwtToken(string email, string role);
+    }
+
+    public interface IAuthCustomerService : IAuthService
+    {
+        string GenerateJwtToken(string cnh);
+    }
+
 }

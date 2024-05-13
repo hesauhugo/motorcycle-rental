@@ -8,10 +8,10 @@ using System.Text;
 
 namespace MotorcycleRental.Infrastructure.Auth
 {
-    public class AuthService : IAuthService
+    public class AuthUserService : IAuthUserService
     {
         private readonly IConfiguration _configuration;
-        public AuthService(IConfiguration configuration)
+        public AuthUserService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -45,7 +45,7 @@ namespace MotorcycleRental.Infrastructure.Auth
 
             var claims = new List<Claim>
             {
-                new Claim("userName", email),
+                new Claim("userEmail", email),
                 new Claim(ClaimTypes.Role, role)
             };
 

@@ -11,5 +11,6 @@ namespace MotorcycleRental.Core.Repositories
     {
         Task<Customer> GetByIdAsync(int id);
         Task AddAsync(Customer customer);
+        Task<Customer> GetCustomerByCnhAndPasswordAsync(string cnh, string passwordHash);
     }
 }

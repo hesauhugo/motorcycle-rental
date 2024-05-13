@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MotorcycleRental.Application.Commands.CreateCustomer;
 using MotorcycleRental.Application.Commands.CreateMotorcycle;
+using MotorcycleRental.Application.Commands.LoginCustomer;
+using MotorcycleRental.Application.Commands.LoginUser;
 using MotorcycleRental.Application.Queries.GetCustomerById;
 using MotorcycleRental.Application.Queries.GetMotorcycleById;
 using MotorcycleRental.Application.ViewModels;
@@ -51,6 +53,20 @@ namespace MotorcycleRental.API.Controllers
             }
 
             return Ok(customer);
+        }
+
+        [HttpPut("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginCustomerCommand command)
+        {
+            var loginUserviewModel = await _mediator.Send(command);
+
+            if (loginUserviewModel == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(loginUserviewModel);
         }
     }
 }

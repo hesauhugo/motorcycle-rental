@@ -16,11 +16,12 @@ namespace MotorcycleRental.Application.Commands.CreateCustomer
         public DateTime BirthDate { get; set; }
         public string Cnh { get; set; }
         public string CnhKind { get; set; }
+        public string Password { get; set; }
         public IFormFile CnhImage { get; set; }
 
-        public Customer ToEntity()
+        public Customer ToEntity(string passwordHash)
         {
-            return new Customer(this.FullName,this.Cnpj,this.BirthDate,this.Cnh,this.CnhKind);
+            return new Customer(this.FullName,this.Cnpj,this.BirthDate,this.Cnh,this.CnhKind, passwordHash);
         }
     }
 }

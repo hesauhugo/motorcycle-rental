@@ -63,6 +63,13 @@ namespace MotorcycleRental.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasColumnName("birth_date")
                 .HasColumnType("date");
+
+            builder
+                .Property(p => p.Password)
+                .IsRequired()
+                .HasColumnName("password")
+                .HasColumnType("text");
+
         }
     }
 }

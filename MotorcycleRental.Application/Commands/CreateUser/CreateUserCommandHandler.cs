@@ -13,8 +13,8 @@ namespace MotorcycleRental.Application.Commands.CreateUser
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
     {
         private readonly MotorcycleRentalDbContext _dbContext;
-        private readonly IAuthService _authService;
-        public CreateUserCommandHandler(MotorcycleRentalDbContext dbContext, IAuthService authService)
+        private readonly IAuthCustomerService _authService;
+        public CreateUserCommandHandler(MotorcycleRentalDbContext dbContext, IAuthCustomerService authService)
         {
             _dbContext = dbContext;
             _authService = authService;
