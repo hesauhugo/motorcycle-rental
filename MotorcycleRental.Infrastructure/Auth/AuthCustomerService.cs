@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using MotorcycleRental.Core.Entities;
 using MotorcycleRental.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace MotorcycleRental.Infrastructure.Auth
             }
         }
 
-        public string GenerateJwtToken(string cnh)
+        public string GenerateJwtToken(Customer customer)
         {
             var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
@@ -50,7 +51,7 @@ namespace MotorcycleRental.Infrastructure.Auth
 
             var claims = new List<Claim>
             {
-                new Claim("customerCnh", cnh),
+                new Claim("idCustomer", customer.Id.ToString()),
                 new Claim(ClaimTypes.Role, "customer")
             };
 

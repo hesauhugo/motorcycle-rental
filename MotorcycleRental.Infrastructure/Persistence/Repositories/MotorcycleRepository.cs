@@ -24,7 +24,7 @@ namespace MotorcycleRental.Infrastructure.Persistence.Repositories
         public async Task AddAsync(Motorcycle motorcycle)
         {
             
-            await _context.AddAsync(motorcycle);
+            await _context.Motorcycles.AddAsync(motorcycle);
             await _context.SaveChangesAsync();
 
         }

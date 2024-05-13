@@ -35,7 +35,7 @@ namespace MotorcycleRental.Application.Commands.LoginUser
             }
 
             // Se existir, gero o token usando os dados do usuário
-            var token = _authUserService.GenerateJwtToken(user.Email, user.Role);
+            var token = _authUserService.GenerateJwtToken(user);
 
             return new LoginUserViewModel(user.Email, token);
         }

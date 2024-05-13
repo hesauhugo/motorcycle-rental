@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MotorcycleRental.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,12 @@ namespace MotorcycleRental.Core.Services
     }
 
     public interface IAuthUserService:IAuthService {
-        string GenerateJwtToken(string email, string role);
+        string GenerateJwtToken(User user);
     }
 
     public interface IAuthCustomerService : IAuthService
     {
-        string GenerateJwtToken(string cnh);
+        string GenerateJwtToken(Customer customer);
     }
 
 }

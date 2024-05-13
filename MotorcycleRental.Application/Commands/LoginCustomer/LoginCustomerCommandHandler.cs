@@ -34,7 +34,7 @@ namespace MotorcycleRental.Application.Commands.LoginCustomer
             }
 
             
-            var token = _authCustomerService.GenerateJwtToken(customer.Cnh);
+            var token = _authCustomerService.GenerateJwtToken(customer);
 
             return new LoginCustomerViewModel(customer.Cnh, token);
         }
