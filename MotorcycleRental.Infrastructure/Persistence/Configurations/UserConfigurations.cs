@@ -22,7 +22,8 @@ namespace MotorcycleRental.Infrastructure.Persistence.Configurations
                 .Property(p => p.Id)
                 .HasColumnName("id")
                 .HasColumnType("integer")
-                .UseIdentityColumn();
+                .UseIdentityColumn()
+                .ValueGeneratedOnAdd(); 
 
             builder
                 .Property(p => p.FullName)

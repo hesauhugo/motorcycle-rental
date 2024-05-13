@@ -13,7 +13,7 @@ namespace MotorcycleRental.API.DependencyInjection
             services.AddScoped(typeof(IMotorcycleRepository), typeof(MotorcycleRepository));
             services.AddScoped(typeof(IAuthService), typeof(AuthService));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
-        
+            services.AddScoped(typeof(ICustomerRepository),typeof(CustomerRepository));
         }
     }
 }

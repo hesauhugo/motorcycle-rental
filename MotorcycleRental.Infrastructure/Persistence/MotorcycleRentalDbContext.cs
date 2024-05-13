@@ -16,7 +16,7 @@ namespace MotorcycleRental.Infrastructure.Persistence
 
         public DbSet<Motorcycle> Motorcycles { get; set; }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Customer> Customers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotorcycleRental.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MotorcycleRental.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(MotorcycleRentalDbContext))]
-    partial class MotorcycleRentalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240513014351_customerCreate")]
+    partial class customerCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,13 +34,11 @@ namespace MotorcycleRental.Infrastructure.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("date")
-                        .HasColumnName("birth_date");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Cnh")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("cnh");
+                        .HasColumnType("text");
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
