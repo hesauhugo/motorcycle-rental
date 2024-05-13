@@ -24,11 +24,17 @@ namespace MotorcycleRental.Infrastructure.Services
 
         public async Task AddAsync(Rental rental)
         {
+            var cnhKind = (await _context.Customers.FindAsync(rental.IdCustomer))?.CnhKind ?? string.Empty;
+            if(!String.IsNullOrWhiteSpace(cnhKind) && cnhKind.Trim() != "A")
+            {
+                throw new InvalidOperationException("Customer cnh is not allowed!");
+            }
+
             var motorcycleUsedIds = _context.Rentals.Select(p => p.IdMotorcycle).ToList();
             var motocycleAvailableId = (await _context.Motorcycles.FirstOrDefaultAsync(p => !motorcycleUsedIds.Contains(p.Id)))?.Id ?? 0;
             if (motocycleAvailableId == 0)
             {
-                throw new InvalidOperationException("Unavailable motorcycle");
+                throw new InvalidOperationException("Unavailable motorcycle!");
             }
 
             rental.SetMotorcycleId(motocycleAvailableId);
