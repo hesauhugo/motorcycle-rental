@@ -16,6 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLoginDependencyInjection(builder.Configuration);
 builder.Host.UseSerilog();
 
+builder.Services.AddMessageBus();
+
 builder.Services.AddDbContext<MotorcycleRentalDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("MotorcycleRental")));
 
 builder.Services.AddRepositoriesDependencyInjection();

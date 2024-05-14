@@ -8,7 +8,7 @@
       - 32777:80
     networks:
       motorcycle-networks:
-    depends_on: ["postgres-docker"]
+    depends_on: ["postgres-docker","rabbit-docker"]
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 
@@ -24,6 +24,14 @@
       motorcycle-networks:
         aliases:
           - pghost
+          
+  rabbit-docker:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      motorcycle-networks:
 
 networks:
   motorcycle-networks:
