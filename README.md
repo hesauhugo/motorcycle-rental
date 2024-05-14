@@ -11,5 +11,10 @@
     docker compose --project-name motorcycle-rental up -d
 ```
 * postgresql is running in port `5433`
-* rabbitmq is running int address:  `localhost:15672`
+* rabbitmq is running int address:  `localhost:15672`, user: `guest`, psw: `guest`
 * motorcycle rental api is running in address `` 
+
+## Rabbit
+* Connection: `motorcycle-producer`
+* Exchange: `motorcycle`
+* Routing key: `motorcycle-created-event`

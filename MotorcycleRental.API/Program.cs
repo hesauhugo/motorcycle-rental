@@ -1,12 +1,9 @@
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MotorcycleRental.API.DependencyInjection;
 using MotorcycleRental.API.Filters;
 using MotorcycleRental.API.Middleware;
 using MotorcycleRental.Application.Commands.CreateMotorcycle;
-using MotorcycleRental.Application.Validators;
 using MotorcycleRental.Infrastructure.Persistence;
 using Serilog;
 
@@ -16,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLoginDependencyInjection(builder.Configuration);
 builder.Host.UseSerilog();
 
-builder.Services.AddMessageBus();
+builder.Services.AddMessageBus(builder.Configuration);
 
 builder.Services.AddDbContext<MotorcycleRentalDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("MotorcycleRental")));
 
@@ -38,7 +35,7 @@ builder.Services.AddRouting();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

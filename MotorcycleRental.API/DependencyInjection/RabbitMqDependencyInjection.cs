@@ -6,11 +6,11 @@ namespace MotorcycleRental.API.DependencyInjection
     public static class RabbitMqDependencyInjection
     {
 
-        public static IServiceCollection AddMessageBus(this IServiceCollection services)
+        public static IServiceCollection AddMessageBus(this IServiceCollection services,IConfiguration configuration)
         {
             var connectionFactory = new ConnectionFactory
             {
-                HostName = "localhost"
+                HostName = configuration["RabbitConnection"]
             };
 
             var connection = connectionFactory.CreateConnection("motorcycle-producer");
