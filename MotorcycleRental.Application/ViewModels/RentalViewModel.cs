@@ -21,7 +21,7 @@ namespace MotorcycleRental.Application.ViewModels
         public int IdMotorcycle { get;  set; }
         public string ModelMotorcycle { get;  set; }
         public string LicensePlateMotorcycle { get; set; }
-
+        public decimal TotalRental { get; set; }
 
         public void FromEntity(Rental rental)
         {
@@ -36,6 +36,7 @@ namespace MotorcycleRental.Application.ViewModels
             this.LicensePlateMotorcycle = rental.Motorcycle.LicensePlate;
             this.DueDate = rental.DueDate;
             this.BeginDate=rental.BeginDate;
+            this.TotalRental = rental.TotalRental;
 
         }
     }
