@@ -12,9 +12,11 @@
 ```
 * postgresql is running in port `5433`
 * rabbitmq is running int address:  `localhost:15672`, user: `guest`, psw: `guest`
-* motorcycle rental api is running in address `` 
+* motorcycle rental api is running in address `localhost:3000/swagger/index.html` 
+* if the api does not work just restart your container.
 
 ## Rabbit
 * Connection: `motorcycle-producer`
 * Exchange: `motorcycle`
 * Routing key: `motorcycle-created-event`
+

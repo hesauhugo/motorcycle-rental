@@ -13,8 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLoginDependencyInjection(builder.Configuration);
 builder.Host.UseSerilog();
 
-builder.Services.AddMessageBus(builder.Configuration);
-
 builder.Services.AddDbContext<MotorcycleRentalDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("MotorcycleRental")));
 
 builder.Services.AddRepositoriesDependencyInjection();
@@ -33,20 +31,20 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddRouting();
 
+builder.Services.AddMessageBus(builder.Configuration);
+
 var app = builder.Build();
 
-//Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//aqui pode colocar o isdevelopment apenas se quiser
+//========================================
+app.UseSwagger();
+app.UseSwaggerUI(opt =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(opt =>
-    {
-        opt.SwaggerEndpoint("/swagger/v1/swagger.json", "MotorcycleRental V1");
-    });
+    opt.SwaggerEndpoint("/swagger/v1/swagger.json", "MotorcycleRental V1");
+});
+//========================================
 
-    app.MigrateDatabase();
-
-}
+app.MigrateDatabase();
 
 app.UseHttpsRedirection();
 
